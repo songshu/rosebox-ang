@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app.rosebox">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>RoseBox Demo by Jack Dybczak</title>
+
+    <!-- Icon -->
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+
+	<!-- CSS -->
+	<link href="assets/style/style.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="world" ng-controller="WorldController">
+    <form class="form-inline">
+		<h1>RoseBox Demo</h1>
+		<input ng-model="search_txt" type="text" class="form-control" placeholder="Please enter search terms" value="{{search_text}}">
+		<button type="button" ng-click="search(search_txt)" class="btn-primary">Search</button>
+		<button type="button" ng-click="cubeset_cmd('show_next_side')" id="rotate_all" class="btn-info" style="display:none">Rotate All</button>
+		<button type="button" ng-click="demo_toggle = !demo_toggle; cubeset_cmd('demo_toggle')" id="demo_all" class="btn-info" style="display:none"><span ng-hide="demo_toggle">Start Demo</span><span ng-show="demo_toggle">Stop Demo</span></button>
+		<p>Click on the cubes to reveal additional information.  <a href="//github.com/songshu/rosebox" class="small">(View Source)</a></p>
+	</form>
+    <div class="cube" ng-class="{selected: is_selected}" ng-mouseenter="is_selected = true" ng-mouseleave="is_selected = false" ng-click="cube_click(cube)" ng-cloak ng-repeat="cube in cubes" ng-style="{'transform': cube.cube_transform_str, '-webkit-transform': cube.cube_transform_str, '-ms-transform': cube.cube_transform_str }">
+        <figure class="front" data-side="1">
+            <div class="pcontent" ng-bind-html="cube.content.front | trusted_html"></div>
+        </figure>
+        <figure class="back" data-side="2">
+            <div class="pcontent" ng-bind-html="cube.content.back | trusted_html"></div>
+        </figure>
+        <figure class="right" data-side="3">
+            <div class="pcontent" ng-bind-html="cube.content.right | trusted_html"></div>
+        </figure>
+        <figure class="left" data-side="4">
+            <div class="pcontent" ng-bind-html="cube.content.left | trusted_html"></div>
+        </figure>
+        <figure class="top" data-side="5">
+            <div class="pcontent" ng-bind-html="cube.content.top | trusted_html"></div>
+        </figure>
+        <figure class="bottom" data-side="6">
+            <div class="pcontent" ng-bind-html="cube.content.bottom | trusted_html"></div>
+        </figure>
+    </div>
+</div>
+
+<!-- JS includes -->
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-animate.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.3.js"></script>
+
+<!-- Our cube world: app, controller, 2 factories. -->
+<script src="assets/js/app.js"></script>
+<script src="assets/js/world.controller.js"></script>
+<script src="assets/js/components/cube.factory.js"></script>
+<script src="assets/js/components/cubeset.factory.js"></script>
+<script src="assets/js/components/feedminer.factory.js"></script>
+</body>
+</html>
